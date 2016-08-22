@@ -13,7 +13,7 @@
   <div ng-app="myApp" ng-controller="myCtrl">
     <p>Dimensions: <input type="number" ng-model="rows"> x <input type="number" ng-model="cols"></p>
     <p>Words: <input type="number" ng-model="nwords"></p>
-    <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input type="number" id="w_{{$parent.$index}}"></p>
+    <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input type="number" id="w_{{$index}}"></p>
     <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
     <button type="button" ng-click="solve()">Solve</button>
   </div>
