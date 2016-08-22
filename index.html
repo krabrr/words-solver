@@ -6,20 +6,13 @@
   <script src="word.js" charset="utf-8"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <style media="screen">
-    table {
-      border: 1px solid black;
-    }
+
   </style>
 </head>
 <body>
   <div ng-app="">
     <p>Dimensions: <input type="text" ng-model="rows"> x <input type="text" ng-model="cols"></p>
-    <p>Test: {{rows}} x {{cols}}</p>
-    <table>
-      <tr ng-repeat={{rows}}>
-        <td ng-repeat={{cols}}></td>
-      </tr>
-    </table>
+    <p><input type="text" class="words" ng-repeat={{cols}}></p>
   </div>
 </body>
 </html>
