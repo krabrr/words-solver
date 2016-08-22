@@ -10,9 +10,17 @@
   </style>
 </head>
 <body>
-  <div ng-app="">
+  <div ng-app="myApp" ng-controller="myCtrl">
     <p>Dimensions: <input type="text" ng-model="rows"> x <input type="text" ng-model="cols"></p>
     <p><input type="text" class="words" ng-repeat="i in getNumber({{cols}})" id="inp{{$index}}"></p>
   </div>
+  <script type="text/javascript">
+    var app = angular.module("myApp", []);
+    app.controller("myCtrl", function($scope) {
+      $scope.getNumber = function(number) {
+        return Array(number);
+      }
+    });
+  </script>
 </body>
 </html>
