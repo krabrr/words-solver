@@ -12,16 +12,21 @@
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
     <p>Dimensions: <input type="text" ng-model="rows"> x <input type="text" ng-model="cols"></p>
-    <p><input type="text" class="words" ng-repeat="i in getNumCols()" id="inp{{$index}}"></p>
+    <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getNumCols('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
   </div>
   <script type="text/javascript">
-    var i, tmp;
+    var i, tmp, num;
     var app = angular.module("myApp", []);
     app.controller("myCtrl", function($scope) {
       $scope.rows = 4;
       $scope.cols = 4;
-      $scope.getNumCols = function() {
-        tmp = []
+      $scope.getArray = function(type) {
+        tmp = [];
+        if (type == "row") {
+          num = $scope.rows;
+        } else {
+          num = $scope.cols;
+        }
         for (i = 0; i < $scope.cols; i++) {
           tmp.push(i)
         }
