@@ -11,7 +11,7 @@
 </head>
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
-    <p>Dimensions: <input type="text" ng-model="rows" x <input type="text" ng-model="cols"></p>
+    <p>Dimensions: <input type="text" ng-model="rows"> x <input type="text" ng-model="cols"></p>
     <p><input type="text" class="words" ng-repeat="i in getNumber({{cols}})" id="inp{{$index}}"></p>
   </div>
   <script type="text/javascript">
