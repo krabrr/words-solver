@@ -11,12 +11,14 @@
 </head>
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
-    <p>Dimensions: <input type="text" ng-model="rows" value="4"> x <input type="text" ng-model="cols" value="4"></p>
+    <p>Dimensions: <input type="text" ng-model="rows" x <input type="text" ng-model="cols"></p>
     <p><input type="text" class="words" ng-repeat="i in getNumber({{cols}})" id="inp{{$index}}"></p>
   </div>
   <script type="text/javascript">
     var app = angular.module("myApp", []);
     app.controller("myCtrl", function($scope) {
+      $scope.rows = 4;
+      $scope.cols = 4;
       $scope.getNumber = function(number) {
         return new Array(number);
       }
