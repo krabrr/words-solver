@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <title>Game Solver</title>
   <script src="word.js" charset="utf-8"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 </head>
 <body>
-  <p id="test"></p>
+  <div ng-app="">
+    <p>Dimensions:</p>
+    <p><input type="text" ng-model="rows"> X <input type="text" ng-model="cols"></p>
+  </div>
 </body>
 </html>
