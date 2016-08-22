@@ -12,15 +12,20 @@
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
     <p>Dimensions: <input type="text" ng-model="rows"> x <input type="text" ng-model="cols"></p>
-    <p><input type="text" class="words" ng-repeat="i in [1, 2, 3]" id="inp{{$index}}"></p>
+    <p><input type="text" class="words" ng-repeat="i in getNumCols()" id="inp{{$index}}"></p>
   </div>
   <script type="text/javascript">
+    var i, tmp;
     var app = angular.module("myApp", []);
     app.controller("myCtrl", function($scope) {
       $scope.rows = 4;
       $scope.cols = 4;
       $scope.getNumCols = function() {
-        return new Array($scope.cols);
+        tmp = []
+        for (i = 0; i < cols; i++) {
+          tmp.push(i)
+        }
+        return tmp;
       }
     });
   </script>
