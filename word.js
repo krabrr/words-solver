@@ -61,15 +61,21 @@ function isPossibleLevel1(main, sub) {
   return true;
 }
 
-function permutation(arr) {
-  var i, sub, used = [], result = [];
+function permutation(arr, used, result) {
+  var i, sub;
+  if (!used) {
+    used = [];
+  }
+  if (!result) {
+    result = [];
+  }
   for (i = 0; i < arr.length; i++) {
     sub = arr.splice(i, 1)[0];
     used.push(sub);
     if (!arr.length) {
       result.push(used.concat());
     }
-    permutation(arr);
+    permutation(arr, used, result);
     arr.splice(i, 0, sub);
     used.pop();
   }
