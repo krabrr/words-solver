@@ -202,6 +202,7 @@ function solve(table, num_words) {
   this.table = table;
 
   char_arr = [];
+  pos_map = new Object();
   for (i = 0; i < 26; i++) char_arr.push(0);
   for (i = 0; i < table.length; i++) {
     pos_map[i] = new Object();
