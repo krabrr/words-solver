@@ -139,7 +139,7 @@ function isTablePossible(info, word) {
 
     path_info = result[0];
     new_pos_map = new Object();
-    new_table = table.concat();
+    new_table = table.slice();
     // remove char in table
     for (i = 0; i < path_info.paths.length; i++) {
       pos = path_info.paths[i];
@@ -179,7 +179,7 @@ function permutation(arr, used, result) {
   for (i = 0; i < arr.length; i++) {
     sub = arr.splice(i, 1)[0];
     used.push(sub);
-    if (!arr.length) result.push(used.concat());
+    if (!arr.length) result.push(used.slice());
     permutation(arr, used, result);
     arr.splice(i, 0, sub);
     used.pop();
@@ -201,7 +201,7 @@ function getResult(order, info) {
     new_info = new Object(), table_info = new Object(),
     new_table_info;
 
-  table_info.table = info.table;
+  table_info.table = info.table.concat();
   table_info.pos_map = info.pos_map;
   words = filterd_words[order[info.level]];
 
@@ -220,7 +220,7 @@ function getResult(order, info) {
       new_info.char_arr = tmp_1;
       new_info.result = info.result;
       new_info.level = info.level + 1;
-      new_info.table = new_table_info.table.concat();
+      new_info.table = new_table_info.table.slice();
       new_info.pos_map = new_table_info.pos_map;
       new_info.word_set = info.word_set.concat([word]);
       getResult(order, new_info);
@@ -238,10 +238,13 @@ function solve(table, num_words) {
   }
 
   char_arr = [];
+  pos_map = new Object();
   for (i = 0; i < 26; i++) char_arr.push(0);
   for (i = 0; i < table.length; i++) {
+    pos_map[i] = new Object();
     for (j = 0; j < table[i].length; j++) {
       ch = table[i][j];
+      pos_map[i][j] = ch;
       chn = ch.charCodeAt(0) - base;
       char_arr[chn]++;
     }
@@ -272,17 +275,9 @@ function solve(table, num_words) {
     info.level = 0;
     info.result = [];
     info.word_set = [];
-    info.table = table.concat();
-    pos_map = new Object();
-    for (j = 0; j < table.length; j++) {
-      pos_map[j] = new Object();
-      for (k = 0; k < table[j].length; k++) {
-        ch = table[j][k];
-        pos_map[j][k] = ch;
-      }
-    }
+    info.table = table.slice();
     info.pos_map = pos_map;
-    info.char_arr = char_arr.concat();
+    info.char_arr = char_arr.slice();
     getResult(perm_arr[i], info);
     result = result.concat(info.result);
   }
