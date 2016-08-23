@@ -139,7 +139,10 @@ function isTablePossible(info, word) {
 
     path_info = result[0];
     new_pos_map = new Object();
-    new_table = table.slice();
+    new_table = [];
+    for (i = 0; i < table.length; i++) {
+      new_table.push(table[i].concat());
+    }
     // remove char in table
     for (i = 0; i < path_info.paths.length; i++) {
       pos = path_info.paths[i];
@@ -179,7 +182,7 @@ function permutation(arr, used, result) {
   for (i = 0; i < arr.length; i++) {
     sub = arr.splice(i, 1)[0];
     used.push(sub);
-    if (!arr.length) result.push(used.slice());
+    if (!arr.length) result.push(used.concat());
     permutation(arr, used, result);
     arr.splice(i, 0, sub);
     used.pop();
@@ -201,7 +204,7 @@ function getResult(order, info) {
     new_info = new Object(), table_info = new Object(),
     new_table_info;
 
-  table_info.table = info.table.concat();
+  table_info.table = info.table;
   table_info.pos_map = info.pos_map;
   words = filterd_words[order[info.level]];
 
@@ -220,7 +223,7 @@ function getResult(order, info) {
       new_info.char_arr = tmp_1;
       new_info.result = info.result;
       new_info.level = info.level + 1;
-      new_info.table = new_table_info.table.slice();
+      new_info.table = new_table_info.table.concat();
       new_info.pos_map = new_table_info.pos_map;
       new_info.word_set = info.word_set.concat([word]);
       getResult(order, new_info);
@@ -275,9 +278,9 @@ function solve(table, num_words) {
     info.level = 0;
     info.result = [];
     info.word_set = [];
-    info.table = table.slice();
+    info.table = table.concat();
     info.pos_map = pos_map;
-    info.char_arr = char_arr.slice();
+    info.char_arr = char_arr.concat();
     getResult(perm_arr[i], info);
     result = result.concat(info.result);
   }
