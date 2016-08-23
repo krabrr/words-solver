@@ -1,6 +1,6 @@
-var dict, reader,
+var dict, reader, i, j, test = true,
   two = [], three = [], four = [],
-  five = [], six = [], seven = [];
+  five = [], six = [], seven = [], eigth = [];
 
 window.addEventListener("DOMContentLoaded", init);
 
@@ -38,13 +38,34 @@ function loadDictionaryCompleteHandler() {
           break;
         case 6:
           six.push(line);
+          break;
         case 7:
           seven.push(line);
+          break;
+        case 8:
+          eigth.push(line);
+          break;
       }
     })
   }
 }
 
 function solve(table, num_words) {
-
+  var row, base;
+  if (test) { // override actual data with test data
+    table = [['e', 'i', 'd', 't'], ['r', 's', 'o', 'n'], ['g', 'i', 'a', 'l']];
+    num_words = [5, 7]
+  }
+  base = 'a'.charCodeAt(0);
+  char_table = [];
+  for (i = 0; i < 26; i++) {
+    char_table.push(0);
+  }
+  for (i = 0; i < table.length; i++) {
+    for (j = 0; j < table[i].length; j++) {
+      c = table[i][j];
+      c = c.charCodeAt(0) - base;
+      char_table[c]++;
+    }
+  }
 }
