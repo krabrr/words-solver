@@ -201,7 +201,7 @@ function getResult(order, info) {
     new_info = new Object(), table_info = new Object(),
     new_table_info;
 
-  table_info.table = info.table.concat();
+  table_info.table = info.table;
   table_info.pos_map = info.pos_map;
   words = filterd_words[order[info.level]];
 
@@ -238,13 +238,10 @@ function solve(table, num_words) {
   }
 
   char_arr = [];
-  pos_map = new Object();
   for (i = 0; i < 26; i++) char_arr.push(0);
   for (i = 0; i < table.length; i++) {
-    pos_map[i] = new Object();
     for (j = 0; j < table[i].length; j++) {
       ch = table[i][j];
-      pos_map[i][j] = ch;
       chn = ch.charCodeAt(0) - base;
       char_arr[chn]++;
     }
@@ -275,7 +272,15 @@ function solve(table, num_words) {
     info.level = 0;
     info.result = [];
     info.word_set = [];
-    info.table = table;
+    info.table = table.concat();
+    pos_map = new Object();
+    for (j = 0; i < table.length; j++) {
+      pos_map[j] = new Object();
+      for (k = 0; k < table[j].length; k++) {
+        ch = table[j][k];
+        pos_map[j][k] = ch;
+      }
+    }
     info.pos_map = pos_map;
     info.char_arr = char_arr.concat();
     getResult(perm_arr[i], info);
