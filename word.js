@@ -220,7 +220,7 @@ function getResult(order, info) {
       new_info.char_arr = tmp_1;
       new_info.result = info.result;
       new_info.level = info.level + 1;
-      new_info.table = new_table_info.table;
+      new_info.table = new_table_info.table.concat();
       new_info.pos_map = new_table_info.pos_map;
       new_info.word_set = info.word_set.concat([word]);
       getResult(order, new_info);
