@@ -1,4 +1,4 @@
-var dict, reader, len_map, i, j, test = true,
+var dict, reader, len_map, test = true,
   two = [], three = [], four = [],
   five = [], six = [], seven = [],
   eigth = [], base = 'a'.charCodeAt(0);
@@ -40,7 +40,7 @@ function loadDictionaryCompleteHandler() {
 }
 
 function getWordCharArray(word) {
-  var chn, char_arr = [];
+  var i, chn, char_arr = [];
   for (i = 0; i < 26; i++) {
     char_arr.push(0);
   }
@@ -52,6 +52,7 @@ function getWordCharArray(word) {
 }
 
 function isPossibleLevel1(main, sub) {
+  var i;
   for (i = 0; i < 26; i++) {
     if (main[i] < sub[i]) {
       return false;
@@ -61,7 +62,7 @@ function isPossibleLevel1(main, sub) {
 }
 
 function solve(table, num_words) {
-  var ch, chn, row, char_arr,
+  var i, j, ch, chn, row, char_arr,
     num_word, tmp_arr, result,
     pos_words, filterd_pos_words;
   if (test) { // override actual data with test data
