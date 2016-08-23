@@ -61,6 +61,21 @@ function isPossibleLevel1(main, sub) {
   return true;
 }
 
+function permutation(arr) {
+  var i, sub, used, result;
+  for (i = 0; i < arr.length; i++) {
+    sub = arr.splice(i, 1)[0];
+    used.push(sub);
+    if (!arr.length) {
+      result.push(used.concat()))
+    }
+    permutation(arr);
+    arr.splice(i, 0, sub);
+    used.pop();
+  }
+  return result;
+}
+
 function solve(table, num_words) {
   var i, j, ch, chn, row, char_arr,
     num_word, tmp_arr, result,
