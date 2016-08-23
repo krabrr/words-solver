@@ -274,7 +274,7 @@ function solve(table, num_words) {
     info.word_set = [];
     info.table = table.concat();
     pos_map = new Object();
-    for (j = 0; i < table.length; j++) {
+    for (j = 0; j < table.length; j++) {
       pos_map[j] = new Object();
       for (k = 0; k < table[j].length; k++) {
         ch = table[j][k];
