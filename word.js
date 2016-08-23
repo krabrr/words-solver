@@ -1,8 +1,8 @@
-var dict, reader, len_map, pos_map, test = true,
+var dict, reader, len_map, test = true,
   two = [], three = [], four = [],
   five = [], six = [], seven = [],
   eigth = [], base = 'a'.charCodeAt(0),
-  table, filterd_words;
+  filterd_words;
 
 window.addEventListener("DOMContentLoaded", init);
 
@@ -51,12 +51,32 @@ function getWordCharArray(word) {
   return char_arr;
 }
 
-function isPossible(main, sub) {
+function isWordPossible(main, sub) {
   var i;
   for (i = 0; i < 26; i++) {
     if (main[i] < sub[i]) return false;
   }
   return true;
+}
+
+function isTablePossible(info, word) {
+  var table = info.table, pos_map = info.pos_map,
+    start_pos_arr = [], first_ch = word.charAt(0),
+    start_pos, row, col, paths,
+    i, j, k, n, ne, e, se, s, sw, w, nw, c;
+
+    for (i = 0; i < table.length; i++) {
+      for (j = 0; j < table[i].length; j++) {
+        if (table[i][j] == first_ch) start_pos_arr.push([i, j]);
+      }
+    }
+
+    for (i = 0; i < start_pos_arr.length; i++) {
+      start_pos = start_pos_arr[i];
+      row = start_pos[0];
+      col = start_pos[1];
+
+    }
 }
 
 function permutation(arr, used, result) {
@@ -85,23 +105,30 @@ function subtract(main, sub) {
 
 function getResult(order, info) {
   var i, words, word, tmp_1, tmp_2,
-    new_info = new Object();
+    new_info = new Object(), table_info = new Object(),
+    new_table_info;
+
+  table_info.table = info.table;
+  table_info.pos_map = info.pos_map;
   words = filterd_words[order[info.level]];
+
   for (i = 0; i < words.length; i++) {
     word = words[i];
     tmp_1 = subtract(info.char_arr, getWordCharArray(word));
     if (!tmp_1) continue;
 
-    // add more condition here
+    new_table_info = isTablePossible(table_info, word);
+    if (!new_table_info) continue;
 
     // base case
     if (info.level == order.length - 1) {
-      info.word_set = info.word_set.concat([word]);
-      info.result.push(info.word_set);
+      info.result.push(info.word_set.concat([word]));
     } else {
       new_info.char_arr = tmp_1;
       new_info.result = info.result;
       new_info.level = info.level + 1;
+      new_info.table = new_table_info.table;
+      new_info.pos_map = new_table_info.pos_map;
       new_info.word_set = info.word_set.concat([word]);
       getResult(order, new_info);
     }
@@ -109,7 +136,7 @@ function getResult(order, info) {
 }
 
 function solve(table, num_words) {
-  var i, j, ch, chn, num_word,
+  var i, j, ch, chn, num_word, table, pos_map,
     char_arr, tmp_arr_1, tmp_arr_2,
     perm_arr, pos_words, info, result;
   if (test) { // override actual data with test data
@@ -139,7 +166,7 @@ function solve(table, num_words) {
     pos_words = len_map[num_word];
     for (j = 0; j < pos_words.length; j++) {
       tmp_arr_2 = getWordCharArray(pos_words[j]);
-      if (isPossible(char_arr, tmp_arr_2)) {
+      if (isWordPossible(char_arr, tmp_arr_2)) {
         tmp_arr_1.push(pos_words[j]);
       }
     }
