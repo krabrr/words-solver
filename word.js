@@ -1,11 +1,20 @@
-var dict, reader, i, j, test = true,
+var dict, reader, len_map, i, j, test = true,
   two = [], three = [], four = [],
-  five = [], six = [], seven = [], eigth = [];
+  five = [], six = [], seven = [],
+  eigth = [], base = 'a'.charCodeAt(0);
 
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
   dict = new Object();
+  len_map = new Object();
+  len_map[2] = two;
+  len_map[3] = three;
+  len_map[4] = four;
+  len_map[5] = five;
+  len_map[6] = six;
+  len_map[7] = seven;
+  len_map[8] = eigth;
   reader = new XMLHttpRequest();
   loadDictionary();
 }
@@ -23,49 +32,66 @@ function loadDictionaryCompleteHandler() {
     lines.forEach(function(line) {
       line = line.toLowerCase();
       dict[line] = true;
-      switch (line.length) {
-        case 2:
-          two.push(line);
-          break;
-        case 3:
-          three.push(line);
-          break;
-        case 4:
-          four.push(line);
-          break;
-        case 5:
-          five.push(line);
-          break;
-        case 6:
-          six.push(line);
-          break;
-        case 7:
-          seven.push(line);
-          break;
-        case 8:
-          eigth.push(line);
-          break;
+      if (line.length > 1 && line.length < 9) {
+        len_map[line.length].push(line);
       }
     })
   }
 }
 
+function getWordCharArray(word) {
+  var chn, char_arr = [];
+  for (i = 0; i < 26; i++) {
+    char_arr.push(0);
+  }
+  for (i = 0; i < word.length; i++) {
+    chn = word.charCodeAt(i) - base;
+    char_arr[chn]++;
+  }
+  return char_arr;
+}
+
+function isPossibleLevel1(main, sub) {
+  for (i = 0; i < 26; i++) {
+    if (main[i] < sub[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 function solve(table, num_words) {
-  var row, base;
+  var ch, chn, row, char_arr,
+    num_word, tmp_arr, result,
+    pos_words, filterd_pos_words;
   if (test) { // override actual data with test data
     table = [['e', 'i', 'd', 't'], ['r', 's', 'o', 'n'], ['g', 'i', 'a', 'l']];
     num_words = [5, 7]
   }
-  base = 'a'.charCodeAt(0);
-  char_table = [];
+  char_arr = [];
   for (i = 0; i < 26; i++) {
-    char_table.push(0);
+    char_arr.push(0);
   }
   for (i = 0; i < table.length; i++) {
     for (j = 0; j < table[i].length; j++) {
-      c = table[i][j];
-      c = c.charCodeAt(0) - base;
-      char_table[c]++;
+      ch = table[i][j];
+      chn = ch.charCodeAt(0) - base;
+      char_arr[chn]++;
     }
+  }
+
+  // step 1: filter all possible word
+  result = [];
+  for (i = 0; i < num_words.length; i++) {
+    filterd_pos_words = [];
+    num_word = num_words[i];
+    pos_words = len_map[num_words];
+    for (j = 0; j < pos_words.length; j++) {
+      tmp_arr = getWordCharArray(pos_words[j]);
+      if (isPossibleLevel1(char_arr, tmp_arr)) {
+        filterd_pos_words.push(pos_words[j]);
+      }
+    }
+    result.push(filterd_pos_words)
   }
 }
