@@ -63,7 +63,7 @@ function isTablePossible(info, word) {
   var table = info.table, pos_map = info.pos_map,
     start_pos_arr = [], first_ch = word.charAt(0),
     start_pos, row, col, paths, path_info, new_path_info,
-    i, j, k, n, ne, e, se, s, sw, w, nw, current,
+    i, j, k, l, n, ne, e, se, s, sw, w, nw, current,
     directions, pos, tmp, sig, result = [];
 
     for (i = 0; i < table.length; i++) {
@@ -116,7 +116,11 @@ function isTablePossible(info, word) {
             new_path_info = new Object();
             new_path_info.last = pos;
             new_path_info.paths = path_info.paths.concat([pos]);
-            new_path_info.visited[sig] = true;
+            new_path_info.visited = new Object();
+            for (l = 0; l < new_path_info.paths.length; l++) {
+              sig = new_path_info.paths[l][0].toString() + ',' + new_path_info.paths[l][1].toString();
+              new_path_info.visited[sig] = true;
+            }
             new_path_info.str = path_info.str + pos_map[row][col];
 
             if (new_path_info.str == word) {
