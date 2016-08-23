@@ -1,4 +1,4 @@
-var dict, reader, len_map, test = true,
+var dict, reader, len_map, test = false,
   two = [], three = [], four = [],
   five = [], six = [], seven = [],
   eigth = [], base = 'a'.charCodeAt(0),
