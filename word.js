@@ -62,8 +62,9 @@ function isWordPossible(main, sub) {
 function isTablePossible(info, word) {
   var table = info.table, pos_map = info.pos_map,
     start_pos_arr = [], first_ch = word.charAt(0),
-    start_pos, row, col, paths,
-    i, j, k, n, ne, e, se, s, sw, w, nw, c;
+    start_pos, row, col, paths, path_info, new_path_info,
+    i, j, k, n, ne, e, se, s, sw, w, nw, current,
+    directions, pos, tmp, sig, result = [];
 
     for (i = 0; i < table.length; i++) {
       for (j = 0; j < table[i].length; j++) {
@@ -75,8 +76,62 @@ function isTablePossible(info, word) {
       start_pos = start_pos_arr[i];
       row = start_pos[0];
       col = start_pos[1];
+      sig = row.toString() + ',' + col.toString();
+      current = [row, col]
 
+      path_info = new Object();
+      path_info.last = current;
+      path_info.paths = [current];
+      path_info.visited = new Object();
+      path_info.visited[sig] = true;
+      path_info.str = pos_map[row][col];
+
+      paths = [path_info];
+      while (paths.length) {
+        for (j = 0; j < paths.length; j++) {
+          path_info = paths[j];
+          current = path_info.last;
+          row = current[0];
+          col = current[1];
+          n = [row - 1, col];
+          ne = [row - 1, col + 1];
+          e = [row, col + 1];
+          se = [row + 1, col + 1];
+          s = [row + 1, col];
+          sw = [row + 1, col - 1];
+          w = [row, col - 1];
+          nw = [row - 1, col - 1]
+          tmp = [];
+          directions = [n, ne, e, se, s, sw, w, nw];
+          for (k = 0; k < directions.length; k++) {
+            pos = directions[k];
+            row = pos[0];
+            col = pos[1];
+            sig = row.toString() + ',' + col.toString();
+            if (path_info.visited[sig]) continue;
+            if (pos_map[row][col] != word.charAt(path_info.str.length)) {
+              continue;
+            }
+            new_path_info = new Object();
+            new_path_info.last = pos;
+            new_path_info.paths = path_info.paths.concat([pos]);
+            new_path_info.visited[sig] = true;
+            new_path_info.str = path_info.str + pos_map[row][col];
+
+            if (new_path_info.str == word) {
+              result.push(new_path_info);
+            } else {
+              tmp.push(new_path_info);
+            }
+          }
+          paths = tmp;
+        }
+      }
     }
+
+    if (!result.length) return null;
+
+    console.log("test");
 }
 
 function permutation(arr, used, result) {
