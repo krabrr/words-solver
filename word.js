@@ -96,6 +96,7 @@ function getResult(order, info) {
 
     // base case
     if (info.level == order.length - 1) {
+      info.word_set = info.word_set.concat([word]);
       info.result.push(info.word_set);
     } else {
       new_info.char_arr = tmp_1;
@@ -158,6 +159,7 @@ function solve(table, num_words) {
     info.table = table;
     info.pos_map = pos_map;
     info.char_arr = char_arr.concat();
-    result = result.concat(getResult(perm_arr[i], info));
+    getResult(perm_arr[i], info);
+    result = result.concat(info.result);
   }
 }
