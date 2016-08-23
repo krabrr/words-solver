@@ -234,7 +234,7 @@ function getResult(order, info) {
 function solve(table, num_words) {
   var i, j, ch, chn, num_word, table, pos_map,
     char_arr, tmp_arr_1, tmp_arr_2,
-    perm_arr, pos_words, info, result;
+    perm_arr, pos_words, info, result, result_str, result_dom;
   if (test) { // override actual data with test data
     table = [['e', 'i', 'd', 't'], ['r', 's', 'o', 'n'], ['g', 'i', 'a', 'l']];
     num_words = [5, 7]
@@ -283,5 +283,17 @@ function solve(table, num_words) {
     info.char_arr = char_arr.concat();
     getResult(perm_arr[i], info);
     result = result.concat(info.result);
+  }
+
+  result_dom = document.getElementById("result");
+  if (!result.length) {
+    result_dom.innerHTML = "Result: Couldn't find result."
+  } else {
+    result_str = "";
+    for (i = 0; i < result.length; i++) {
+      result_str += (result_str ? ", " : "") + result[i].join(",");
+    }
+    result_str = "Result: " + result_str;
+    result_dom.innerHTML = result_str;
   }
 }
