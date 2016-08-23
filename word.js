@@ -86,11 +86,11 @@ function subtract(main, sub) {
 function getResult(order, info) {
   var i, words, word, tmp_1, tmp_2,
     new_info = new Object();
-  words = filterd_words[info.level];
+  words = filterd_words[order[info.level]];
   for (i = 0; i < words.length; i++) {
     word = words[i];
     tmp_1 = subtract(info.char_arr, getWordCharArray(word));
-    if (!tmp_1) return;
+    if (!tmp_1) continue;
 
     // add more condition here
 
