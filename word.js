@@ -67,7 +67,7 @@ function permutation(arr) {
     sub = arr.splice(i, 1)[0];
     used.push(sub);
     if (!arr.length) {
-      result.push(used.concat()))
+      result.push(used.concat());
     }
     permutation(arr);
     arr.splice(i, 0, sub);
