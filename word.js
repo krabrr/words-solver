@@ -1,7 +1,8 @@
 var dict, reader, len_map, test = false,
   two = [], three = [], four = [],
   five = [], six = [], seven = [],
-  eigth = [], base = 'a'.charCodeAt(0),
+  eigth = [], nine = [], ten = [],
+  eleven = [], base = 'a'.charCodeAt(0),
   filterd_words;
 
 window.addEventListener("DOMContentLoaded", init);
@@ -17,6 +18,9 @@ function init() {
   len_map[6] = six;
   len_map[7] = seven;
   len_map[8] = eigth;
+  len_map[9] = nine;
+  len_map[10] = ten;
+  len_map[11] = eleven;
   reader = new XMLHttpRequest();
   loadDictionary();
 }
@@ -34,7 +38,7 @@ function loadDictionaryCompleteHandler() {
     lines.forEach(function(line) {
       line = line.toLowerCase();
       dict[line] = true;
-      if (line.length > 1 && line.length < 9) {
+      if (line.length > 1 && line.length < 12) {
         len_map[line.length].push(line);
       }
     })
@@ -291,7 +295,7 @@ function solve(table, num_words) {
   } else {
     result_str = "";
     for (i = 0; i < result.length; i++) {
-      result_str += (result_str ? ", " : "") + result[i].join(",");
+      result_str += (result_str ? " or " : "") + result[i].join(", ");
     }
     result_str = "Result: " + result_str;
     result_dom.innerHTML = result_str;
