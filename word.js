@@ -201,7 +201,7 @@ function getResult(order, info) {
     new_info = new Object(), table_info = new Object(),
     new_table_info;
 
-  table_info.table = info.table;
+  table_info.table = info.table.concat();
   table_info.pos_map = info.pos_map;
   words = filterd_words[order[info.level]];
 
@@ -236,8 +236,6 @@ function solve(table, num_words) {
     table = [['e', 'i', 'd', 't'], ['r', 's', 'o', 'n'], ['g', 'i', 'a', 'l']];
     num_words = [5, 7]
   }
-
-  this.table = table;
 
   char_arr = [];
   pos_map = new Object();
