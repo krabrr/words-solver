@@ -148,7 +148,7 @@ function solve(table, num_words) {
   // step 2: filter with more restrict condition
   result = [];
   tmp_arr_1 = []
-  for (i = 0; i < num_words.length; i++) tmp_arr.push(i);
+  for (i = 0; i < num_words.length; i++) tmp_arr_1.push(i);
   perm_arr = permutation(tmp_arr_1);
   for (i = 0; i < perm_arr.length; i++) {
     info = new Object();
