@@ -17,6 +17,9 @@
     <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
     <button type="button" ng-click="initInfo()">Solve</button>
   </div>
+  <div>
+    <p id="result">Result: </p>
+  </div>
   <script type="text/javascript">
     var i, j, tmp, num;
     var app = angular.module("myApp", []);
