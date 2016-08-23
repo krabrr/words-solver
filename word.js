@@ -63,8 +63,8 @@ function isTablePossible(info, word) {
   var table = info.table, pos_map = info.pos_map,
     start_pos_arr = [], first_ch = word.charAt(0),
     start_pos, row, col, paths, path_info, new_path_info,
-    i, j, k, l, n, ne, e, se, s, sw, w, nw, current,
-    directions, pos, tmp, sig, result = [];
+    i, j, k, l, ch, n, ne, e, se, s, sw, w, nw, current,
+    directions, pos, tmp, sig, result = [], new_table, new_pos_map, new_info;
 
     for (i = 0; i < table.length; i++) {
       for (j = 0; j < table[i].length; j++) {
@@ -135,8 +135,41 @@ function isTablePossible(info, word) {
     }
 
     if (!result.length) return null;
+    if (!result.length > 1) console.log("WARNING: Multiple paths have been found.");
 
-    console.log("test");
+    path_info = result[0];
+    new_pos_map = new Object();
+    new_table = table.concat();
+    // remove char in table
+    for (i = 0; i < path_info.paths.length; i++) {
+      pos = path_info.paths[i];
+      row = pos[0];
+      col = pos[1];
+      new_table[row][col] = "";
+    }
+    // gravity
+    for (i = new_table.length-1; i > 0; i--) {
+      for (j = 0; j < new_table[i].length; j++) {
+        if (new_table[i][j] == "") {
+          tmp = new_table[i - 1][j];
+          new_table[i][j] = tmp;
+          new_table[i - 1][j] = "";
+        }
+      }
+    }
+    // update pos_map
+    for (i = 0; i < new_table.length; i++) {
+      new_pos_map[i] = new Object();
+      for (j = 0; j < new_table[i].length; j++) {
+        ch = new_table[i][j];
+        new_pos_map[i][j] = ch;
+      }
+    }
+
+    new_info = new Object();
+    new_info.table = new_table;
+    new_info.pos_map = new_pos_map;
+    return new_info;
 }
 
 function permutation(arr, used, result) {
