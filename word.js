@@ -85,7 +85,7 @@ function solve(table, num_words) {
   for (i = 0; i < num_words.length; i++) {
     filterd_pos_words = [];
     num_word = num_words[i];
-    pos_words = len_map[num_words];
+    pos_words = len_map[num_word];
     for (j = 0; j < pos_words.length; j++) {
       tmp_arr = getWordCharArray(pos_words[j]);
       if (isPossibleLevel1(char_arr, tmp_arr)) {
