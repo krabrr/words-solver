@@ -15,7 +15,7 @@
     <p>Words: <input type="number" ng-model="nwords"></p>
     <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input type="number" id="w_{{$index}}"></p>
     <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
-    <button type="button" ng-click="solve()">Solve</button>
+    <button type="button" ng-click="initInfo()">Solve</button>
   </div>
   <script type="text/javascript">
     var i, j, tmp, num;
@@ -38,7 +38,7 @@
         }
         return tmp;
       }
-      $scope.solve = function() {
+      $scope.initInfo = function() {
         var table = [], num_words = [], inp;
         for (i = 0; i < $scope.rows; i++) {
           tmp = [];
@@ -52,6 +52,7 @@
           inp = document.getElementById("w_"+i.toString());
           num_words.push(inp.value);
         }
+        solve(table, num_words);
       }
     });
   </script>
