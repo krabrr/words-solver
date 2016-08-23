@@ -109,6 +109,7 @@ function isTablePossible(info, word) {
             col = pos[1];
             sig = row.toString() + ',' + col.toString();
             if (path_info.visited[sig]) continue;
+            if (!pos_map[row] || !pos_map[row][col]) continue;
             if (pos_map[row][col] != word.charAt(path_info.str.length)) {
               continue;
             }
