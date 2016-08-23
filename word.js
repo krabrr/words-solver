@@ -62,7 +62,7 @@ function isPossibleLevel1(main, sub) {
 }
 
 function permutation(arr) {
-  var i, sub, used, result;
+  var i, sub, used = [], result = [];
   for (i = 0; i < arr.length; i++) {
     sub = arr.splice(i, 1)[0];
     used.push(sub);
