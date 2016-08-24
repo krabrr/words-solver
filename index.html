@@ -29,7 +29,7 @@
       <div class="error" ng-show="form.$submitted || form.nword.$touched">
         <div ng-show="form.nword.$error.required">Word number is required.</div>
       </div>
-      <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input name="alphabet" type="number" id="w_{{$index}}" ng-model="w_{{$index}}" required></p>
+      <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input id="w_{{$index}}" name="alphabet" type="number" ng-model="alphabet" required></p>
       <div class="error" ng-show="form.$submitted || form.alphabet.$touched">
         <div ng-show="form.alphabet.$error.required">Alphabet number is required.</div>
       </div>
