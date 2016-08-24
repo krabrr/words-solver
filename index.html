@@ -37,6 +37,7 @@
       <div class="error" ng-show="form.$submitted">
         <div ng-show="empty_table">Table could not be empty.</div>
       </div>
+      <button type="button" ng-click="reset()">Reset</button>
       <button type="submit">Solve</button>
     </form>
   </div>
@@ -67,6 +68,24 @@
         }
         return tmp;
       }
+      $scope.reset = function() {
+        $scope.rows = 4;
+        $scope.cols = 4;
+        $scope.nwords = 3;
+
+        for (i = 0; i < $scope.rows; i++) {
+          tmp = [];
+          for (j = 0; j < $scope.cols; j++) {
+            inp = document.getElementById("inp_"+i.toString()+j.toString());
+            inp.value = "";
+          }
+        }
+
+        for (i = 0; i < $scope.nwords; i++) {
+          inp = document.getElementById("w_"+i.toString());
+          inp.value = "";
+        }
+      }
       $scope.initInfo = function() {
         var inp, table = [], num_words = [], empty_table = true;
         for (i = 0; i < $scope.rows; i++) {
@@ -85,7 +104,7 @@
         }
 
         $scope.empty_table = empty_table;
-        
+
         if (empty_table) return;
         solve(table, num_words);
       }
