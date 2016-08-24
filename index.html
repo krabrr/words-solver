@@ -35,7 +35,7 @@
       </div>
       <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
       <div class="error" ng-show="form.$submitted">
-        <div ng-show="$empty_table">Table could not be empty.</div>
+        <div ng-show="{{$empty_table}}">Table could not be empty.</div>
       </div>
       <button type="submit">Solve</button>
     </form>
