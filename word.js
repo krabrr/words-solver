@@ -264,6 +264,7 @@ function solve(table, num_words) {
     tmp_arr_1 = [];
     num_word = num_words[i];
     pos_words = len_map[num_word];
+    if (!pos_words) continue;
     for (j = 0; j < pos_words.length; j++) {
       tmp_arr_2 = getWordCharArray(pos_words[j]);
       if (isWordPossible(char_arr, tmp_arr_2)) {
@@ -298,7 +299,7 @@ function solve(table, num_words) {
   }
 
   if (!result.length) {
-    result_dom.innerHTML = "Result: Couldn't find result."
+    alert("Couldn't find result.");
   } else {
     result_str = "";
     for (i = 0; i < result.length; i++) {
