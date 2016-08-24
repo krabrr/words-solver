@@ -34,6 +34,9 @@
         <div ng-show="form.alphabet.$error.required">Alphabet number is required.</div>
       </div>
       <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
+      <div class="error" ng-show="form.$submitted">
+        <div ng-show="$empty_table">Table could not be empty.</div>
+      </div>
       <button type="submit">Solve</button>
     </form>
   </div>
@@ -49,6 +52,7 @@
       $scope.rows = 4;
       $scope.cols = 4;
       $scope.nwords = 3;
+      $scope.empty_table = true;
       $scope.getArray = function(type) {
         tmp = [];
         if (type == "row") {
@@ -64,19 +68,24 @@
         return tmp;
       }
       $scope.initInfo = function() {
-        var table = [], num_words = [], inp;
+        var inp, table = [], num_words = [], empty_table = true;
         for (i = 0; i < $scope.rows; i++) {
           tmp = [];
           for (j = 0; j < $scope.cols; j++) {
             inp = document.getElementById("inp_"+i.toString()+j.toString());
+            if (inp.value) empty_table = false;
             tmp.push(inp.value);
           }
           table.push(tmp);
         }
+
         for (i = 0; i < $scope.nwords; i++) {
           inp = document.getElementById("w_"+i.toString());
           num_words.push(inp.value);
         }
+
+        $scope.empty_table = empty_table;
+        if (empty_table) return;
         solve(table, num_words);
       }
     });
