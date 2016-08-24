@@ -7,7 +7,10 @@
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <style media="screen">
-
+    .color {
+      color: red;
+      display: inline;;
+    }
   </style>
 </head>
 <body>
@@ -16,7 +19,7 @@
       <p>
         Dimensions:
         <input name="row" type="number" ng-model="rows" required> x <input name="col" type="number" ng-model="cols" required>
-        <div ng-show="form.$submitted || form.row.$touched || form.col.$touched">
+        <div class="error" ng-show="form.$submitted || form.row.$touched || form.col.$touched">
           <div ng-show="form.row.$error.required || form.col.$error.required">Required.</div>
         </div>
       </p>
