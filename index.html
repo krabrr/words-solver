@@ -8,9 +8,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <style media="screen">
     .error {
-      color: red;
+      color: #ff4444;
       display: inline;
     }
+
+    input.ng-invalid.ng-touched {
+      background-color: #ff4444;
+    }
+
   </style>
 </head>
 <body>
@@ -33,7 +38,9 @@
     </form>
   </div>
   <div>
-    <p id="result">Result: </p>
+    <div id="result">
+
+    </div>
   </div>
   <script type="text/javascript">
     var i, j, tmp, num;
