@@ -20,7 +20,7 @@
 </head>
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
-    <form name="form" class="css-form" novalidate>
+    <form name="form" class="css-form" ng-submit="form.$valid && initInfo()" novalidate>
       <p>Dimensions: <input name="row" type="number" ng-model="rows" required> x <input name="col" type="number" ng-model="cols" required></p>
       <div class="error" ng-show="form.$submitted || form.row.$touched || form.col.$touched">
         <div ng-show="form.row.$error.required || form.col.$error.required">Dimensions is required.</div>
@@ -34,7 +34,7 @@
         <div ng-show="form.alphabet.$error.required">Alphabet number is required.</div>
       </div>
       <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
-      <button type="submit" ng-click="initInfo()">Solve</button>
+      <button type="submit">Solve</button>
     </form>
   </div>
   <div>
