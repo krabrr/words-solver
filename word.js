@@ -211,6 +211,7 @@ function getResult(order, info) {
   table_info.table = info.table;
   table_info.pos_map = info.pos_map;
   words = filterd_words[order[info.level]];
+  if (!words) return;
 
   for (i = 0; i < words.length; i++) {
     word = words[i];
@@ -272,6 +273,11 @@ function solve(table, num_words) {
       }
     }
     filterd_words.push(tmp_arr_1)
+  }
+
+  if (!filterd_words.length) {
+    alert("Couldn't find result.");
+    return;
   }
 
   // step 2: filter with more restrict condition
