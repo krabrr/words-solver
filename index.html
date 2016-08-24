@@ -5,17 +5,20 @@
   <title>Game Solver</title>
   <script src="word.js" charset="utf-8"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <style media="screen">
 
   </style>
 </head>
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
-    <p>Dimensions: <input type="number" ng-model="rows"> x <input type="number" ng-model="cols"></p>
-    <p>Words: <input type="number" ng-model="nwords"></p>
-    <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input type="number" id="w_{{$index}}"></p>
-    <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
-    <button type="button" ng-click="initInfo()">Solve</button>
+    <form class="css-form" novalidate>
+      <p>Dimensions: <input type="number" ng-model="rows" required> x <input type="number" ng-model="cols" required></p>
+      <p>Words: <input type="number" ng-model="nwords" required></p>
+      <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input type="number" id="w_{{$index}}"required></p>
+      <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
+      <button type="button" ng-click="initInfo()">Solve</button>
+    </form>
   </div>
   <div>
     <p id="result">Result: </p>
