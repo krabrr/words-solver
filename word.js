@@ -92,6 +92,7 @@ function isTablePossible(info, word) {
 
       paths = [path_info];
       while (paths.length) {
+        tmp = [];
         for (j = 0; j < paths.length; j++) {
           path_info = paths[j];
           current = path_info.last;
@@ -105,7 +106,6 @@ function isTablePossible(info, word) {
           sw = [row + 1, col - 1];
           w = [row, col - 1];
           nw = [row - 1, col - 1]
-          tmp = [];
           directions = [n, ne, e, se, s, sw, w, nw];
           for (k = 0; k < directions.length; k++) {
             pos = directions[k];
@@ -133,8 +133,8 @@ function isTablePossible(info, word) {
               tmp.push(new_path_info);
             }
           }
-          paths = tmp;
         }
+        paths = tmp;
       }
     }
 
