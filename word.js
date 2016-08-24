@@ -68,7 +68,8 @@ function isTablePossible(info, word) {
     start_pos_arr = [], first_ch = word.charAt(0),
     start_pos, row, col, paths, path_info, new_path_info,
     i, j, k, l, ch, n, ne, e, se, s, sw, w, nw, current,
-    directions, pos, tmp, sig, result = [], new_table, new_pos_map, new_info;
+    directions, pos, tmp, sig, result = [], posible_paths = [],
+    new_table, new_pos_map, new_info;
 
     for (i = 0; i < table.length; i++) {
       for (j = 0; j < table[i].length; j++) {
@@ -128,7 +129,7 @@ function isTablePossible(info, word) {
             new_path_info.str = path_info.str + pos_map[row][col];
 
             if (new_path_info.str == word) {
-              result.push(new_path_info);
+              posible_paths.push(new_path_info);
             } else {
               tmp.push(new_path_info);
             }
@@ -138,45 +139,48 @@ function isTablePossible(info, word) {
       }
     }
 
-    if (!result.length) return null;
-    if (!result.length > 1) console.log("WARNING: Multiple paths have been found.");
+    if (!posible_paths.length) return null;
 
-    path_info = result[0];
-    new_pos_map = new Object();
-    new_table = [];
-    for (i = 0; i < table.length; i++) {
-      new_table.push(table[i].concat());
-    }
-    // remove char in table
-    for (i = 0; i < path_info.paths.length; i++) {
-      pos = path_info.paths[i];
-      row = pos[0];
-      col = pos[1];
-      new_table[row][col] = "";
-    }
-    // gravity
-    for (i = new_table.length-1; i > 0; i--) {
-      for (j = 0; j < new_table[i].length; j++) {
-        if (new_table[i][j] == "") {
-          tmp = new_table[i - 1][j];
-          new_table[i][j] = tmp;
-          new_table[i - 1][j] = "";
+    for (i = 0; i < posible_paths.length; i++) {
+      path_info = posible_paths[i];
+      new_pos_map = new Object();
+      new_table = [];
+      for (i = 0; i < table.length; i++) {
+        new_table.push(table[i].concat());
+      }
+      // remove char in table
+      for (j = 0; j < path_info.paths.length; j++) {
+        pos = path_info.paths[j];
+        row = pos[0];
+        col = pos[1];
+        new_table[row][col] = "";
+      }
+      // gravity
+      for (j = new_table.length-1; j > 0; j--) {
+        for (k = 0; k < new_table[j].length; k++) {
+          if (new_table[j][k] == "") {
+            tmp = new_table[j - 1][k];
+            new_table[j][k] = tmp;
+            new_table[j - 1][k] = "";
+          }
         }
       }
-    }
-    // update pos_map
-    for (i = 0; i < new_table.length; i++) {
-      new_pos_map[i] = new Object();
-      for (j = 0; j < new_table[i].length; j++) {
-        ch = new_table[i][j];
-        new_pos_map[i][j] = ch;
+      // update pos_map
+      for (j = 0; j < new_table.length; j++) {
+        new_pos_map[j] = new Object();
+        for (k = 0; j < new_table[k].length; k++) {
+          ch = new_table[j][k];
+          new_pos_map[j][k] = ch;
+        }
       }
+
+      new_info = new Object();
+      new_info.table = new_table;
+      new_info.pos_map = new_pos_map;
+      result.push(new_info);
     }
 
-    new_info = new Object();
-    new_info.table = new_table;
-    new_info.pos_map = new_pos_map;
-    return new_info;
+    return result;
 }
 
 function permutation(arr, used, result) {
@@ -204,9 +208,9 @@ function subtract(main, sub) {
 }
 
 function getResult(order, info) {
-  var i, words, word, tmp_1, tmp_2,
+  var i, j, words, word, tmp_1, tmp_2,
     new_info = new Object(), table_info = new Object(),
-    new_table_info;
+    new_table_info, new_table_info_arr;
 
   table_info.table = info.table;
   table_info.pos_map = info.pos_map;
@@ -218,20 +222,23 @@ function getResult(order, info) {
     tmp_1 = subtract(info.char_arr, getWordCharArray(word));
     if (!tmp_1) continue;
 
-    new_table_info = isTablePossible(table_info, word);
-    if (!new_table_info) continue;
+    new_table_info_arr = isTablePossible(table_info, word);
+    if (!new_table_info_arr) continue;
 
-    // base case
-    if (info.level == order.length - 1) {
-      info.result.push(info.word_set.concat([word]));
-    } else {
-      new_info.char_arr = tmp_1;
-      new_info.result = info.result;
-      new_info.level = info.level + 1;
-      new_info.table = new_table_info.table.concat();
-      new_info.pos_map = new_table_info.pos_map;
-      new_info.word_set = info.word_set.concat([word]);
-      getResult(order, new_info);
+    for (j = 0; j < new_table_info_arr.length; j++) {
+      new_table_info = new_table_info_arr[j];
+      // base case
+      if (info.level == order.length - 1) {
+        info.result.push(info.word_set.concat([word]));
+      } else {
+        new_info.char_arr = tmp_1;
+        new_info.result = info.result;
+        new_info.level = info.level + 1;
+        new_info.table = new_table_info.table.concat();
+        new_info.pos_map = new_table_info.pos_map;
+        new_info.word_set = info.word_set.concat([word]);
+        getResult(order, new_info);
+      }
     }
   }
 }
