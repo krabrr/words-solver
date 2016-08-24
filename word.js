@@ -295,7 +295,7 @@ function solve(table, num_words) {
   } else {
     result_str = "";
     for (i = 0; i < result.length; i++) {
-      result_str += (result_str ? " or " : "") + result[i].join(", ");
+      result_str += (result_str ? "\n" : "") + result[i].join(", ");
     }
     result_str = "Result: " + result_str;
     result_dom.innerHTML = result_str;
