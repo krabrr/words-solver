@@ -168,7 +168,7 @@ function isTablePossible(info, word) {
       // update pos_map
       for (j = 0; j < new_table.length; j++) {
         new_pos_map[j] = new Object();
-        for (k = 0; j < new_table[k].length; k++) {
+        for (k = 0; k < new_table[j].length; k++) {
           ch = new_table[j][k];
           new_pos_map[j][k] = ch;
         }
