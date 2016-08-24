@@ -16,15 +16,18 @@
 <body>
   <div ng-app="myApp" ng-controller="myCtrl">
     <form name="form" class="css-form" novalidate>
-      <p>
-        Dimensions:
-        <input name="row" type="number" ng-model="rows" required> x <input name="col" type="number" ng-model="cols" required>
-        <div class="error" ng-show="form.$submitted || form.row.$touched || form.col.$touched">
-          <div ng-show="form.row.$error.required || form.col.$error.required">Required.</div>
-        </div>
-      </p>
-      <p>Words: <input type="number" ng-model="nwords" required></p>
-      <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input type="number" id="w_{{$index}}"required></p>
+      <p>Dimensions: <input name="row" type="number" ng-model="rows" required> x <input name="col" type="number" ng-model="cols" required></p>
+      <div class="error" ng-show="form.$submitted || form.row.$touched || form.col.$touched">
+        <div ng-show="form.row.$error.required || form.col.$error.required">Dimensions is required.</div>
+      </div>
+      <p>How Many Words?: <input name="nword" type="number" ng-model="nwords" required></p>
+      <div class="error" ng-show="form.$submitted || form.nword.$touched">
+        <div ng-show="form.nword.$error.required">Word number is required.</div>
+      </div>
+      <p ng-repeat="i in getArray('word')">Word {{$index + 1}} Alphabets: <input name="alphabet" type="number" id="w_{{$index}}" required></p>
+      <div class="error" ng-show="form.$submitted || form.alphabet.$touched">
+        <div ng-show="form.alphabet.$error.required">Alphabet number is required.</div>
+      </div>
       <p ng-repeat="i in getArray('row')"><input type="text" class="words" ng-repeat="i in getArray('col')" id="inp_{{$parent.$index}}{{$index}}"></p>
       <button type="submit" ng-click="initInfo()">Solve</button>
     </form>
