@@ -288,6 +288,12 @@ function solve(table, num_words) {
   }
 
   // step 2: filter with more restrict condition
+  result_dom = document.getElementById("result");
+  // clear answer
+  while (result_dom.firstChild) {
+    result_dom.removeChild(result_dom.firstChild);
+  }
+
   result = [];
   tmp_arr_1 = []
   for (i = 0; i < num_words.length; i++) tmp_arr_1.push(i);
@@ -301,25 +307,16 @@ function solve(table, num_words) {
     info.pos_map = pos_map;
     info.char_arr = char_arr.concat();
     getResult(perm_arr[i], info);
+    for (i = 0; i < info.result.length; i++) {
+      p = document.createElement("p");
+      node = document.createTextNode(info.result[i].join(", "));
+      p.appendChild(node);
+      result_dom.appendChild(p);
+    }
     result = result.concat(info.result);
-  }
-
-  result_dom = document.getElementById("result");
-
-  // clear answer
-  while (result_dom.firstChild) {
-    result_dom.removeChild(result_dom.firstChild);
   }
 
   if (!result.length) {
     alert("Couldn't find result.");
-  } else {
-    result_str = "";
-    for (i = 0; i < result.length; i++) {
-      p = document.createElement("p");
-      node = document.createTextNode(result[i].join(", "));
-      p.appendChild(node);
-      result_dom.appendChild(p);
-    }
   }
 }
